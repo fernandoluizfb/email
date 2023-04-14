@@ -8,6 +8,9 @@ import datetime
 import pandas as pd
 import gspread
 import matplotlib.pyplot as plt
+import smtplib
+import email.message
+
 
 from flask import Flask, request
 from oauth2client.service_account import ServiceAccountCredentials
@@ -18,9 +21,34 @@ from datetime import datetime, date
 from datetime import date, timedelta
 
 
-EMAIL_KEY_FILE = os.environ["EMAIL_KEY_FILE"]
+#Configurando informações sensíveis de forma segura
 
+EMAIL_KEY_FILE = os.environ["EMAIL_KEY_FILE"]
+TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
+TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
+GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
+with open("credenciais.json", mode="w") as arquivo:
+  arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
+conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
+api = gspread.authorize(conta)
+planilha = api.open_by_key("1_FPdKuYoSq6iCCLK7f6dDCOrFpa3s5aBcfQIlXKfSyc")
+sheet = planilha.worksheet("cotacao")
 app = Flask(__name__)
+
+
+menu = """
+<a href="/">Página inicial</a> | <a href="/email">Email</a>
+<br>
+"""
+
+@app.route("/")
+def sobre():
+  return menu + "Aqui vai o conteúdo da página Sobre"
+
+@app.route("/email")
+def contato():
+  return menu + "Essa página para o email das cotações das moedas"
+
 
 def enviar_email():
     data_atual = datetime.date.today()
