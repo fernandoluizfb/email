@@ -3,7 +3,6 @@ import os
 import gspread
 import pandas as pd
 import requests
-import telegram
 import datetime
 import pandas as pd
 import gspread
@@ -24,8 +23,6 @@ from datetime import date, timedelta
 #Configurando informações sensíveis de forma segura
 
 EMAIL_KEY_FILE = os.environ["EMAIL_KEY_FILE"]
-TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
-TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
 with open("credenciais.json", mode="w") as arquivo:
   arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
