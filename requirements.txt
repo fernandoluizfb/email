@@ -1,0 +1,15 @@
+Flask==2.0.2
+gunicorn==20.1.0
+tchan
+requests
+gspread
+oauth2client
+pandas
+python-bcb
+numpy
+datetime
+python-telegram-bot==13.9
+telegram
+matplotlib
+email.message
+smtplib
